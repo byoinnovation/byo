@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B&O Innovation – Automatización de Procesos Industriales</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a0e1a;
+    --navy2: #101828;
+    --steel: #1c2a3a;
+    --accent: #1e6fe8;
+    --accent2: #00c6ff;
+    --silver: #a8b8cc;
+    --light: #dce8f5;
+    --white: #ffffff;
+    --grid: rgba(30,111,232,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 6%;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(30,111,232,0.15);
+  }
+  .nav-logo {
+    display: flex; flex-direction: column; line-height: 1;
+    text-decoration: none;
+  }
+  .nav-logo .logo-top {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 2rem; letter-spacing: 0.02em;
+    color: var(--silver); line-height: 0.9;
+  }
+  .nav-logo .logo-top .amp {
+    color: var(--silver); font-size: 2.2rem;
+  }
+  .nav-logo .logo-bottom {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300; font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: lowercase; color: var(--silver);
+    border-top: 1px solid rgba(168,184,204,0.4);
+    padding-top: 3px; margin-top: 2px;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--silver);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--accent); color: var(--white);
+    border: none; padding: 0.6rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #1458c0; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 6% 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, #0a0e1a 40%, #0d1e35 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+  .hero-glow {
+    position: absolute; right: -10%; top: 10%;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,111,232,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 720px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(30,111,232,0.12);
+    border: 1px solid rgba(30,111,232,0.3);
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 2rem;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent2); border-radius: 50%;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
+  }
+  .hero h1 .accent-word {
+    color: var(--accent2);
+    display: block;
+  }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--silver);
+    line-height: 1.7; max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    background: var(--accent); color: var(--white);
+    border: none; padding: 0.9rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: #1458c0; transform: translateY(-2px); }
+  .btn-ghost {
+    background: transparent; color: var(--light);
+    border: 1px solid rgba(168,184,204,0.35);
+    padding: 0.9rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .hero-stats {
+    position: absolute; right: 6%; bottom: 15%; z-index: 2;
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .stat-card {
+    background: rgba(16,24,40,0.8);
+    border: 1px solid rgba(30,111,232,0.2);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.5rem;
+    min-width: 180px;
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    color: var(--white); line-height: 1;
+  }
+  .stat-num span { color: var(--accent2); }
+  .stat-label { font-size: 0.75rem; color: var(--silver); letter-spacing: 0.08em; margin-top: 2px; }
+
+  /* SECTION BASE */
+  section { padding: 6rem 6%; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; text-transform: uppercase; line-height: 1.05;
+    margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--silver); max-width: 560px; line-height: 1.7; }
+
+  /* SERVICIOS */
+  #servicios { background: var(--navy2); position: relative; }
+  #servicios::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .services-header { margin-bottom: 3.5rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: rgba(30,111,232,0.12);
+    border: 1px solid rgba(30,111,232,0.12);
+  }
+  .service-card {
+    background: var(--navy2);
+    padding: 2.5rem 2rem;
+    transition: background 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { background: var(--steel); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon {
+    width: 52px; height: 52px;
+    background: rgba(30,111,232,0.12);
+    border: 1px solid rgba(30,111,232,0.25);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  .service-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+  }
+  .service-card p { font-size: 0.9rem; color: var(--silver); line-height: 1.65; }
+
+  /* BENEFICIOS */
+  #beneficios { background: var(--navy); }
+  .benefits-wrap {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .benefits-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .benefit-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .benefit-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.5rem; font-weight: 800;
+    color: rgba(30,111,232,0.2); line-height: 1; min-width: 48px;
+    transition: color 0.3s;
+  }
+  .benefit-item:hover .benefit-num { color: var(--accent); }
+  .benefit-item h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem; font-weight: 700;
+    text-transform: uppercase; margin-bottom: 0.3rem;
+  }
+  .benefit-item p { font-size: 0.875rem; color: var(--silver); line-height: 1.6; }
+
+  .metrics-panel {
+    background: var(--steel);
+    border: 1px solid rgba(30,111,232,0.15);
+    padding: 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .metric {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border: 1px solid rgba(30,111,232,0.1);
+    position: relative;
+  }
+  .metric::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 30px; height: 2px; background: var(--accent2);
+  }
+  .metric-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.8rem; font-weight: 800;
+    color: var(--white); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .metric-val span { color: var(--accent2); }
+  .metric-label { font-size: 0.8rem; color: var(--silver); letter-spacing: 0.06em; }
+
+  /* PROCESO */
+  #proceso { background: var(--navy2); }
+  .process-steps {
+    margin-top: 3rem;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    position: relative; gap: 0;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 32px; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .step {
+    padding: 0 1.5rem; text-align: center;
+    position: relative;
+  }
+  .step-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--navy2);
+    border: 2px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--accent2);
+    margin: 0 auto 1.5rem;
+    position: relative; z-index: 2;
+  }
+  .step h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 700; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .step p { font-size: 0.82rem; color: var(--silver); line-height: 1.6; }
+
+  /* CONTACTO */
+  #contacto {
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  #contacto::before {
+    content: '';
+    position: absolute; left: -200px; top: -200px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(30,111,232,0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .contact-wrap {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .contact-info { padding-top: 1rem; }
+  .contact-items { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(30,111,232,0.12);
+    background: rgba(16,24,40,0.5);
+  }
+  .contact-item-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: rgba(30,111,232,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .contact-item-label { font-size: 0.7rem; color: var(--silver); letter-spacing: 0.1em; margin-bottom: 2px; }
+  .contact-item-val { font-size: 0.9rem; font-weight: 500; }
+  .contact-item-val a { color: var(--white); text-decoration: none; }
+  .contact-item-val a:hover { color: var(--accent2); }
+
+  .contact-form {
+    background: var(--steel);
+    border: 1px solid rgba(30,111,232,0.15);
+    padding: 2.5rem;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--silver); margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: rgba(10,14,26,0.7);
+    border: 1px solid rgba(30,111,232,0.2);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--accent2); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-group select option { background: var(--navy2); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* FOOTER */
+  footer {
+    background: #060910;
+    padding: 3rem 6% 2rem;
+    border-top: 1px solid rgba(30,111,232,0.12);
+  }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-wrap: wrap; gap: 2rem;
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--silver);
+  }
+  .footer-logo span { color: var(--silver); }
+  .footer-logo p { font-size: 0.8rem; color: var(--silver); font-weight: 400; margin-top: 4px; }
+  .footer-links { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .footer-col h5 {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col ul a {
+    font-size: 0.85rem; color: var(--silver);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-bottom {
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: rgba(168,184,204,0.5);
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero h1 { animation: fadeUp 0.6s 0.15s ease both; }
+  .hero-desc { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-actions { animation: fadeUp 0.6s 0.45s ease both; }
+  .hero-stats { animation: fadeUp 0.6s 0.6s ease both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .benefits-wrap, .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-stats { position: static; flex-direction: row; flex-wrap: wrap; margin-top: 3rem; }
+    .hero { flex-direction: column; }
+    nav .nav-links { display: none; }
+    .process-steps::before { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <span class="logo-top">B<span class="amp">&</span>O</span>
+    <span class="logo-bottom">innovation</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Cotizar</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Automatización Industrial · Colombia</div>
+    <h1>
+      <em>Transformamos</em>
+      tus procesos
+      <span class="accent-word">industriales</span>
+    </h1>
+    <p class="hero-desc">
+      Soluciones de automatización inteligente que optimizan operaciones, reducen costos y escalan con tu empresa. Tecnología de punta aplicada a la industria colombiana.
+    </p>
+    <div class="hero-actions">
+      <a href="#servicios" class="btn-primary">Ver servicios</a>
+      <a href="#contacto" class="btn-ghost">Hablar con un experto</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">40<span>%</span></div>
+      <div class="stat-label">Reducción de costos operativos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">24<span>/7</span></div>
+      <div class="stat-label">Monitoreo y control continuo</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">+50</div>
+      <div class="stat-label">Proyectos implementados</div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="services-header">
+    <p class="section-tag">Lo que hacemos</p>
+    <h2 class="section-title">Nuestros servicios</h2>
+    <p class="section-sub">Cubrimos todo el ciclo de automatización, desde el diagnóstico hasta el soporte continuo de tus sistemas industriales.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>Automatización de procesos</h3>
+      <p>Diseño e implementación de sistemas automatizados para líneas de producción, ensamblaje y logística industrial con tecnología de vanguardia.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Monitoreo y control</h3>
+      <p>Plataformas de supervisión en tiempo real con dashboards personalizados, alertas y registro histórico de variables críticas.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤖</div>
+      <h3>Robótica industrial</h3>
+      <p>Integración de brazos robóticos y sistemas colaborativos para tareas repetitivas, peligrosas o de alta precisión.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔗</div>
+      <h3>Integración IoT</h3>
+      <p>Conexión de maquinaria existente a plataformas IoT para recolección de datos, análisis predictivo y mantenimiento preventivo.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📉</div>
+      <h3>Optimización operativa</h3>
+      <p>Análisis de procesos actuales, identificación de cuellos de botella y rediseño para maximizar eficiencia y reducir desperdicios.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛠️</div>
+      <h3>Soporte y mantenimiento</h3>
+      <p>Contratos de mantenimiento preventivo y correctivo, soporte técnico remoto y presencial para garantizar continuidad operativa.</p>
+    </div>
+  </div>
+</section>
+
+<section id="beneficios">
+  <div class="benefits-wrap">
+    <div>
+      <p class="section-tag">Por qué elegirnos</p>
+      <h2 class="section-title">Resultados que impactan tu operación</h2>
+      <p class="section-sub">No solo implementamos tecnología, transformamos la manera en que tu empresa produce y compite.</p>
+      <div class="benefits-list">
+        <div class="benefit-item">
+          <div class="benefit-num">01</div>
+          <div>
+            <h4>Optimización operativa</h4>
+            <p>Reducimos tiempos muertos y aumentamos la productividad de tus líneas con sistemas inteligentes que aprenden y se adaptan.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-num">02</div>
+          <div>
+            <h4>Reducción de costos</h4>
+            <p>Nuestros clientes reportan ahorros de hasta 40% en costos operativos en el primer año de implementación.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-num">03</div>
+          <div>
+            <h4>Escalabilidad y control</h4>
+            <p>Soluciones modulares que crecen con tu empresa, con visibilidad total sobre cada proceso desde cualquier dispositivo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-panel">
+      <div class="metric">
+        <div class="metric-val">40<span>%</span></div>
+        <div class="metric-label">Ahorro en costos</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">3<span>x</span></div>
+        <div class="metric-label">Mayor productividad</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">99<span>%</span></div>
+        <div class="metric-label">Uptime garantizado</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">24<span>h</span></div>
+        <div class="metric-label">Tiempo de respuesta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proceso">
+  <p class="section-tag">Cómo trabajamos</p>
+  <h2 class="section-title">Nuestro proceso</h2>
+  <p class="section-sub">Un método probado para garantizar implementaciones exitosas y resultados medibles.</p>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-circle">01</div>
+      <h4>Diagnóstico</h4>
+      <p>Analizamos tus procesos actuales, identificamos oportunidades de mejora y definimos objetivos claros.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">02</div>
+      <h4>Diseño</h4>
+      <p>Desarrollamos la arquitectura de la solución adaptada a tus necesidades técnicas y presupuesto.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">03</div>
+      <h4>Implementación</h4>
+      <p>Instalamos y configuramos los sistemas minimizando el impacto en tu operación diaria.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">04</div>
+      <h4>Capacitación</h4>
+      <p>Entrenamos a tu equipo para operar y sacar el máximo provecho de los nuevos sistemas.</p>
+    </div>
+    <div class="step">
+      <div class="step-circle">05</div>
+      <h4>Soporte</h4>
+      <p>Acompañamiento continuo, monitoreo remoto y mantenimiento preventivo para asegurar el rendimiento.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <p class="section-tag">Hablemos</p>
+      <h2 class="section-title">¿Listo para automatizar tu empresa?</h2>
+      <p class="section-sub">Contáctanos y uno de nuestros ingenieros te asesorará sin costo para identificar el mejor camino para tu operación.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Teléfono</div>
+            <div class="contact-item-val"><a href="tel:+573213592645">+57 321 359 2645</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🌐</div>
+          <div>
+            <div class="contact-item-label">Sitio web</div>
+            <div class="contact-item-val"><a href="http://www.byoinnovation.com" target="_blank">www.www.byoinnovation.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <div class="contact-item-label">Correo</div>
+            <div class="contact-item-val"><a href="mailto:juanllobe2002@gmail.com">juanllobe2002@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Ubicación</div>
+            <div class="contact-item-val">Colombia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:700;text-transform:uppercase;margin-bottom:1.5rem;">Solicitar asesoría gratuita</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nombre de tu empresa">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" placeholder="correo@empresa.com">
+      </div>
+      <div class="form-group">
+        <label>Servicio de interés</label>
+        <select>
+          <option value="">Selecciona un servicio</option>
+          <option>Automatización de procesos</option>
+          <option>Monitoreo y control</option>
+          <option>Robótica industrial</option>
+          <option>Integración IoT</option>
+          <option>Optimización operativa</option>
+          <option>Soporte y mantenimiento</option>
+          <option>Asesorias y colsultorias</option>
+          <option>Soluciones a su medida</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="Cuéntanos sobre tu proceso o necesidad..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;clip-path:none;padding:1rem;" onclick="alert('¡Mensaje enviado! Nos pondremos en contacto pronto.')">Enviar solicitud</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:800;line-height:0.9;color:var(--silver);">B<span style="color:var(--silver);font-size:3rem;">&</span>O</div>
+      <div style="font-family:'Barlow',sans-serif;font-weight:300;font-size:0.75rem;letter-spacing:0.25em;color:var(--silver);border-top:1px solid rgba(168,184,204,0.4);padding-top:4px;margin-top:3px;">innovation</div>
+      <p style="font-size:0.78rem;color:var(--silver);font-weight:400;margin-top:8px;letter-spacing:0.04em;">Automatización de Procesos Industriales</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Servicios</h5>
+        <ul>
+          <li><a href="#servicios">Automatización</a></li>
+          <li><a href="#servicios">Monitoreo y control</a></li>
+          <li><a href="#servicios">Robótica</a></li>
+          <li><a href="#servicios">IoT Industrial</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#beneficios">Por qué nosotros</a></li>
+          <li><a href="#proceso">Nuestro proceso</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="http://www.byoservices.com" target="_blank">Web oficial</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 B&O Innovation. Todos los derechos reservados.</span>
+    <span>Diseñado para impulsar la industria colombiana.</span>
+  </div>
+</footer>
+
+</body>
+</html>
