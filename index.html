@@ -29,7 +29,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -75,7 +74,6 @@
   }
   .nav-cta:hover { background: #1458c0; }
 
-  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center;
@@ -85,8 +83,7 @@
   }
   .hero-bg {
     position: absolute; inset: 0;
-    background:
-      linear-gradient(135deg, #0a0e1a 40%, #0d1e35 100%);
+    background: linear-gradient(135deg, #0a0e1a 40%, #0d1e35 100%);
   }
   .hero-grid {
     position: absolute; inset: 0;
@@ -185,7 +182,6 @@
   .stat-num span { color: var(--accent2); }
   .stat-label { font-size: 0.75rem; color: var(--silver); letter-spacing: 0.08em; margin-top: 2px; }
 
-  /* SECTION BASE */
   section { padding: 6rem 6%; }
   .section-tag {
     font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
@@ -200,7 +196,6 @@
   }
   .section-sub { color: var(--silver); max-width: 560px; line-height: 1.7; }
 
-  /* SERVICIOS */
   #servicios { background: var(--navy2); position: relative; }
   #servicios::before {
     content: '';
@@ -246,7 +241,6 @@
   }
   .service-card p { font-size: 0.9rem; color: var(--silver); line-height: 1.65; }
 
-  /* BENEFICIOS */
   #beneficios { background: var(--navy); }
   .benefits-wrap {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -295,7 +289,6 @@
   .metric-val span { color: var(--accent2); }
   .metric-label { font-size: 0.8rem; color: var(--silver); letter-spacing: 0.06em; }
 
-  /* PROCESO */
   #proceso { background: var(--navy2); }
   .process-steps {
     margin-top: 3rem;
@@ -329,7 +322,6 @@
   }
   .step p { font-size: 0.82rem; color: var(--silver); line-height: 1.6; }
 
-  /* CONTACTO */
   #contacto {
     background: var(--navy);
     position: relative; overflow: hidden;
@@ -395,7 +387,6 @@
   .form-group select option { background: var(--navy2); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
-  /* FOOTER */
   footer {
     background: #060910;
     padding: 3rem 6% 2rem;
@@ -432,7 +423,6 @@
     flex-wrap: wrap; gap: 1rem;
   }
 
-  /* WHATSAPP FLOAT */
   .whatsapp-float {
     position: fixed;
     left: 24px;
@@ -459,7 +449,6 @@
     fill: #fff;
   }
 
-  /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -470,7 +459,6 @@
   .hero-actions { animation: fadeUp 0.6s 0.45s ease both; }
   .hero-stats { animation: fadeUp 0.6s 0.6s ease both; }
 
-  /* RESPONSIVE */
   @media (max-width: 900px) {
     .benefits-wrap, .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
     .hero-stats { position: static; flex-direction: row; flex-wrap: wrap; margin-top: 3rem; }
@@ -553,36 +541,48 @@
     <h2 class="section-title">Nuestros servicios</h2>
     <p class="section-sub">Cubrimos todo el ciclo de automatización, desde el diagnóstico hasta el soporte continuo de tus sistemas industriales.</p>
   </div>
+
   <div class="services-grid">
     <div class="service-card">
       <div class="service-icon">⚙️</div>
       <h3>Automatización de procesos</h3>
       <p>Diseño e implementación de sistemas automatizados para líneas de producción, ensamblaje y logística industrial con tecnología de vanguardia.</p>
     </div>
+
     <div class="service-card">
       <div class="service-icon">📊</div>
       <h3>Monitoreo y control</h3>
       <p>Plataformas de supervisión en tiempo real con dashboards personalizados, alertas y registro histórico de variables críticas.</p>
     </div>
+
     <div class="service-card">
       <div class="service-icon">🤖</div>
       <h3>Robótica industrial</h3>
       <p>Integración de brazos robóticos y sistemas colaborativos para tareas repetitivas, peligrosas o de alta precisión.</p>
     </div>
+
     <div class="service-card">
       <div class="service-icon">🔗</div>
       <h3>Integración IoT</h3>
       <p>Conexión de maquinaria existente a plataformas IoT para recolección de datos, análisis predictivo y mantenimiento preventivo.</p>
     </div>
+
     <div class="service-card">
       <div class="service-icon">📉</div>
       <h3>Optimización operativa</h3>
       <p>Análisis de procesos actuales, identificación de cuellos de botella y rediseño para maximizar eficiencia y reducir desperdicios.</p>
     </div>
+
     <div class="service-card">
       <div class="service-icon">🛠️</div>
       <h3>Soporte y mantenimiento</h3>
       <p>Contratos de mantenimiento preventivo y correctivo, soporte técnico remoto y presencial para garantizar continuidad operativa.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🧠</div>
+      <h3>Asesoría en procesos empresariales</h3>
+      <p>Asesoramos a empresas en el análisis, rediseño y optimización de sus procesos, con enfoque en productividad, eficiencia operativa y transformación industrial.</p>
     </div>
   </div>
 </section>
@@ -617,6 +617,7 @@
         </div>
       </div>
     </div>
+
     <div class="metrics-panel">
       <div class="metric">
         <div class="metric-val">40<span>%</span></div>
@@ -689,7 +690,7 @@
           <div class="contact-item-icon">🌐</div>
           <div>
             <div class="contact-item-label">Sitio web</div>
-            <div class="contact-item-val"><a href="http://www.byoinnovation.com" target="_blank">www.byoinnovation.com</a></div>
+            <div class="contact-item-val"><a href="https://byoinnovation.github.io/byo/" target="_blank">byoinnovation.github.io/byo</a></div>
           </div>
         </div>
         <div class="contact-item">
@@ -735,7 +736,7 @@
           <option>Integración IoT</option>
           <option>Optimización operativa</option>
           <option>Soporte y mantenimiento</option>
-          <option>Asesorías y consultorías</option>
+          <option>Asesoría en procesos empresariales</option>
           <option>Soluciones a su medida</option>
         </select>
       </div>
@@ -771,7 +772,7 @@
           <li><a href="#beneficios">Por qué nosotros</a></li>
           <li><a href="#proceso">Nuestro proceso</a></li>
           <li><a href="#contacto">Contacto</a></li>
-          <li><a href="http://www.byoservices.com" target="_blank">Web oficial</a></li>
+          <li><a href="https://byoinnovation.github.io/byo/" target="_blank">Web oficial</a></li>
         </ul>
       </div>
     </div>
@@ -782,9 +783,8 @@
   </div>
 </footer>
 
-<!-- BOTÓN FLOTANTE WHATSAPP -->
 <a
-  href="https://wa.me/573213592645?text=Hola%2C%20bienvenido%20a%20B%26O%20Innovation.%20Gracias%20por%20contactarnos.%20Estamos%20listos%20para%20ayudarte%20a%20optimizar%20y%20automatizar%20tus%20procesos%20industriales.%20%C2%BFCu%C3%A9ntanos%20qu%C3%A9%20necesita%20tu%20empresa%3F"
+  href="https://wa.me/573213592645?text=Hola%2C%20bienvenido%20a%20B%26O%20Innovation.%20Gracias%20por%20contactarnos.%20Ayudamos%20a%20las%20empresas%20a%20optimizar%2C%20modernizar%20y%20automatizar%20sus%20procesos%20industriales.%20Cu%C3%A9ntanos%20qu%C3%A9%20necesita%20tu%20empresa%20y%20con%20gusto%20te%20asesoramos."
   class="whatsapp-float"
   target="_blank"
   rel="noopener noreferrer"
